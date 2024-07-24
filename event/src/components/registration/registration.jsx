@@ -1,35 +1,18 @@
-import { getAuth, RecaptchaVerifier } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import OtpInput from "react-otp-input";
+import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import app from "../../firebase.config";
 import "./registration.css";
-
-const auth = getAuth(app);
 
 const RegistrationPage = () => {
   const [name, setName] = useState("");
   const [gender, setGender] = useState("");
   const [dob, setDob] = useState("");
   const [email, setEmail] = useState("");
-  const [mobile, setMobile] = useState("");
+  const [phone, setPhone] = useState("");
   const [regNo, setRegNo] = useState("");
   const [course, setCourse] = useState("");
   const [hORd, setHorD] = useState("");
   const [hostelID, setHostelID] = useState("");
-  const [otp, setOtp] = useState("");
-  const [showOtpField, setShowOtpField] = useState(false);
-  const [confirmationResult, setConfirmationResult] = useState(null);
-  const [isVerified, setIsVerified] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Added state for loading indicator
-
-  useEffect(() => {
-    // Reset loading state when verification is complete
-    if (isVerified) {
-      setIsLoading(false);
-    }
-  }, [isVerified]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,7 +21,7 @@ const RegistrationPage = () => {
       !gender ||
       !dob ||
       !email ||
-      !mobile ||
+      !phone ||
       !regNo ||
       !course ||
       !hORd ||
@@ -47,49 +30,48 @@ const RegistrationPage = () => {
       alert("Please fill all the fields");
       return;
     }
-    const formData = { name, gender, dob, email, mobile, regNo, course, hORd };
-    console.log("Form Data Submitted: ", formData);
-  };
 
-  const handleVerifyClick = async () => {
-    setIsLoading(true); // Set loading indicator while processing
-    try {
-      const appVerifier = new RecaptchaVerifier(
-        "recaptcha-container",
-        {
-          size: "invisible",
-          // ... other reCAPTCHA options
-        },
-        auth
-      );
+    const formData = { name, gender, dob, email, phone, regNo, course, hORd, hostelID };
 
-      await appVerifier.render(); // Wait for rendering to complete
+    // Call Razorpay
+    var options = {
+      key: "rzp_test_qh04kGj3eSvHvz", 
+      amount: 10100,
+      currency: "INR",
+      name: "Razor Pay",
+      description: "Test Transaction",
+      image: "https://example.com/your_logo",
+      handler: function (response) {
+        alert(response.razorpay_payment_id);
+        alert(response.razorpay_order_id);
+        alert(response.razorpay_signature);
+        console.log("Payment Successful", response);
+        console.log("Form Data Submitted: ", formData);
+      },
+      prefill: {
+        name: name,
+        email: email,
+        contact: phone,
+      },
+      notes: {
+        address: "Your Company Address",
+      },
+      theme: {
+        color: "#3399cc",
+      },
+    };
 
-      const confirmationResult = await signInWithPhoneNumber(
-        `+${mobile}`,
-        appVerifier
-      );
-      setConfirmationResult(confirmationResult);
-      setShowOtpField(true);
-    } catch (error) {
-      console.error("Error sending OTP:", error);
-      alert("Failed to send OTP. Please try again.");
-    } finally {
-      setIsLoading(false); // Ensure loading indicator is reset
-    }
-  };
-
-  const handleVerifyOtpClick = () => {
-    confirmationResult
-      .confirm(otp)
-      .then((result) => {
-        console.log("OTP verification successful:", result.user);
-        setIsVerified(true); // Set the verification state to true
-      })
-      .catch((error) => {
-        console.error("Error verifying OTP", error);
-        alert("Invalid OTP. Please try again.");
-      });
+    var rzp1 = new window.Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
   };
 
   return (
@@ -130,42 +112,13 @@ const RegistrationPage = () => {
           />
         </div>
         <div className="field">
-          <h3 className="field-title">Mobile Number</h3>
+          <h3 className="field-title">Phone Number</h3>
           <PhoneInput
             country={"in"}
-            value={mobile}
-            onChange={(phone) => setMobile(phone.replace(/\D/g, ""))} // Clean phone input
+            value={phone}
+            onChange={(phone) => setPhone(phone)}
           />
-          <button
-            type="button"
-            onClick={handleVerifyClick}
-            className="verify-button"
-            disabled={isLoading} // Disable button while loading
-          >
-            {isLoading ? "Sending..." : "Verify"}
-          </button>
         </div>
-        <div id="recaptcha-container"></div>
-        {showOtpField && (
-          <div className="field">
-            <h3 className="field-title">Enter OTP</h3>
-            <OtpInput
-              value={otp}
-              onChange={setOtp}
-              numInputs={6}
-              placeholder=" "
-              renderSeparator={<span>-</span>}
-              renderInput={(props) => (
-                <input {...props} style={{ width: "30px", height: "30px" }} />
-              )}
-            />
-            <div className="submit-btn">
-              <button type="button" onClick={handleVerifyOtpClick}>
-                {isVerified ? "Verified" : "Submit OTP"}
-              </button>
-            </div>
-          </div>
-        )}
         <div className="field">
           <h3 className="field-title">Email</h3>
           <input
@@ -221,12 +174,7 @@ const RegistrationPage = () => {
           </div>
         )}
         <div className="button">
-          <button
-            type="submit"
-            className="button-input"
-            disabled={!isVerified}
-            onClick={handleSubmit}
-          >
+          <button type="submit" className="button-input">
             Register
           </button>
         </div>

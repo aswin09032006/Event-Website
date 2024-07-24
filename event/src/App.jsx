@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import OtpComponent from "./components/OTP/otp";
 import RegistrationPage from "./components/registration/registration";
+import Navbar from "./utils/navbar/navbar";
 
 const App = () => {
   return (
     <BrowserRouter>
+    <Navbar/>
       <Routes>
         <Route path="registration" element={<RegistrationPage />} />
-        <Route path="otp" element={<OtpComponent />} />
+        {/* <Route path="otp" element={<OtpComponent />} /> */}
       </Routes>
     </BrowserRouter>
   );
