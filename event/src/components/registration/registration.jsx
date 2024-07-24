@@ -1,3 +1,5 @@
+import axios from "axios";
+import QRCode from "qrcode.react";
 import React, { useState } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -13,6 +15,10 @@ const RegistrationPage = () => {
   const [course, setCourse] = useState("");
   const [hORd, setHorD] = useState("");
   const [hostelID, setHostelID] = useState("");
+  const [upiLink, setUpiLink] = useState("");
+  const [paymentScreenshot, setPaymentScreenshot] = useState(null);
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false);
+  const [showPaymentOptions, setShowPaymentOptions] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,47 +37,52 @@ const RegistrationPage = () => {
       return;
     }
 
-    const formData = { name, gender, dob, email, phone, regNo, course, hORd, hostelID };
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("gender", gender);
+    formData.append("dob", dob);
+    formData.append("email", email);
+    formData.append("phone", phone);
+    formData.append("regNo", regNo);
+    formData.append("course", course);
+    formData.append("hORd", hORd);
+    formData.append("hostelID", hostelID);
+    if (paymentScreenshot) {
+      formData.append("paymentScreenshot", paymentScreenshot);
+    }
 
-    // Call Razorpay
-    var options = {
-      key: "rzp_test_qh04kGj3eSvHvz", 
-      amount: 10100,
-      currency: "INR",
-      name: "Razor Pay",
-      description: "Test Transaction",
-      image: "https://example.com/your_logo",
-      handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
-        console.log("Payment Successful", response);
-        console.log("Form Data Submitted: ", formData);
-      },
-      prefill: {
-        name: name,
-        email: email,
-        contact: phone,
-      },
-      notes: {
-        address: "Your Company Address",
-      },
-      theme: {
-        color: "#3399cc",
-      },
-    };
+    axios
+      .post("http://localhost:5000/register", formData)
+      .then(() => {
+        alert("Registration successful! Please complete the payment.");
+      })
+      .catch((error) => {
+        console.error("Error storing data: ", error);
+      });
+  };
 
-    var rzp1 = new window.Razorpay(options);
-    rzp1.on('payment.failed', function (response) {
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
-    });
-    rzp1.open();
+  const handleFileChange = (e) => {
+    setPaymentScreenshot(e.target.files[0]);
+  };
+
+  const handlePaymentConfirmation = () => {
+    if (!paymentScreenshot) {
+      alert("Please upload a screenshot of the payment.");
+      return;
+    }
+
+    setPaymentConfirmed(true);
+    alert("Payment confirmed successfully!");
+  };
+
+  const handlePaymentClick = () => {
+    const googlePayUpiID = "parthi1805@axl";
+    const amount = 1;
+
+    const upiIntentUrl = `upi://pay?pa=${googlePayUpiID}&pn=Your Company Name&am=${amount}&cu=INR`;
+
+    setUpiLink(upiIntentUrl);
+    setShowPaymentOptions(true);
   };
 
   return (
@@ -117,6 +128,7 @@ const RegistrationPage = () => {
             country={"in"}
             value={phone}
             onChange={(phone) => setPhone(phone)}
+            inputStyle={{width:"90%"}}
           />
         </div>
         <div className="field">
@@ -173,11 +185,38 @@ const RegistrationPage = () => {
             />
           </div>
         )}
-        <div className="button">
-          <button type="submit" className="button-input">
-            Register
-          </button>
-        </div>
+        {!showPaymentOptions && (
+          <div className="button">
+            <button type="button" className="button-input" onClick={handlePaymentClick}>
+              Proceed to Payment
+            </button>
+          </div>
+        )}
+        {showPaymentOptions && (
+          <div className="upi-payment">
+            <h3>Scan the QR code to complete the payment</h3>
+            <QRCode value={upiLink} />
+            <div className="payment-screenshot-upload">
+              <h3>Upload Payment Screenshot</h3>
+              <input type="file" onChange={handleFileChange} />
+              <button onClick={handlePaymentConfirmation} className="button-input">
+                Confirm Payment
+              </button>
+            </div>
+          </div>
+        )}
+        {paymentConfirmed && (
+          <div className="payment-confirmation">
+            <h3>Payment confirmed. Thank you!</h3>
+          </div>
+        )}
+        {paymentConfirmed && (
+          <div className="button">
+            <button type="submit" className="button-input">
+              Register
+            </button>
+          </div>
+        )}
       </form>
     </div>
   );
