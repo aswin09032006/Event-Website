@@ -25,7 +25,7 @@ const RegistrationPage = () => {
   useEffect(() => {
     if (hORd === "Hosteller") {
       if (gender === "male") {
-        setHostelNo("DH");
+        setHostelNo("BH");
       } else if (gender === "female") {
         setHostelNo("GH");
       } else {
@@ -45,7 +45,7 @@ const RegistrationPage = () => {
       !email ||
       !phone ||
       !regNo ||
-      !bloodGroup||
+      !bloodGroup ||
       !program ||
       !course ||
       !hORd ||
@@ -199,12 +199,21 @@ const RegistrationPage = () => {
         </div>
         <div className="field">
           <h3 className="field-title">Blood Group</h3>
-          <input
-            type="text"
+          <select
             className="field-input"
             value={bloodGroup}
             onChange={(e) => setBloodGroup(e.target.value)}
-          />
+          >
+            <option value="">Select</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+          </select>
         </div>
         <div className="field">
           <h3 className="field-title">Hosteller/Dayscholar</h3>
@@ -239,31 +248,32 @@ const RegistrationPage = () => {
         {showPaymentOptions && (
           <div className="upi-payment">
             <h3>Scan the QR code to complete the payment</h3>
-            <QRCode value={upiLink} />
-            <div className="payment-screenshot-upload">
-              <h3>Upload Payment Screenshot</h3>
-              <input type="file" onChange={handleFileChange} />
-              <button onClick={handlePaymentConfirmation} className="button-input">
-                Confirm Payment
-              </button>
-            </div>
-          </div>
-        )}
-        {paymentConfirmed && (
-          <div className="payment-confirmation">
-            <h3>Payment confirmed. Thank you!</h3>
-          </div>
-        )}
-        {paymentConfirmed && (
-          <div className="button">
-            <button type="submit" className="button-input">
-              Register
-            </button>
-          </div>
-        )}
-      </form>
-    </div>
-  );
-};
-
-export default RegistrationPage;
+                        <QRCode value={upiLink} />
+                        <div className="payment-screenshot-upload">
+                          <h3>Upload Payment Screenshot</h3>
+                          <input type="file" onChange={handleFileChange} />
+                          <button onClick={handlePaymentConfirmation} className="button-input">
+                            Confirm Payment
+                          </button>
+                        </div>
+                      </div>
+                    )}
+                    {paymentConfirmed && (
+                      <div className="payment-confirmation">
+                        <h3>Payment confirmed. Thank you!</h3>
+                      </div>
+                    )}
+                    {paymentConfirmed && (
+                      <div className="button">
+                        <button type="submit" className="button-input">
+                          Register
+                        </button>
+                      </div>
+                    )}
+                  </form>
+                </div>
+              );
+            };
+            
+            export default RegistrationPage;
+            

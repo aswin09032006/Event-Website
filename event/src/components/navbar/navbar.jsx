@@ -31,7 +31,7 @@ const Navbar = () => {
           }}
         >
           <img src={logo} alt="" style={{ height: "35px", paddingTop: "3%" }} />
-          <h3 style={{marginLeft:"10px"}}>Unit Prabhat</h3>
+          <h3 style={{marginLeft:"10px"}}>RUN FOR EQUALITY 2 - 2024</h3>
         </a>
       </div>
 
@@ -43,7 +43,7 @@ const Navbar = () => {
         <div className="navbar-links-header">
           {/* Company name in header */}
           <div className="company-name">
-            <a href="/">Unit Prabhat</a>
+            <a href="/">RUN FOR EQUALITY 2 - 2024</a>
           </div>
           {/* Close sidebar button */}
           <label htmlFor="sidebar-active" className="close-sidebar-button">

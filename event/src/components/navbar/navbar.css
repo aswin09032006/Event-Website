@@ -22,6 +22,12 @@ body {
   box-sizing: border-box;
 }
 
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Navbar links header */
 .navbar-links-header {
   display: flex;

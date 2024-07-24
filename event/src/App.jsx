@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-import RegistrationPage from "./components/registration/registration";
-import Navbar from "./utils/navbar/navbar";
+import Navbar from "./components/navbar/navbar";
+import Home from "./routes/home/home";
+import RegistrationPage from "./routes/registration/registration";
+
 
 const App = () => {
   return (
@@ -10,7 +12,8 @@ const App = () => {
     <Navbar/>
       <Routes>
         <Route path="registration" element={<RegistrationPage />} />
-        {/* <Route path="otp" element={<OtpComponent />} /> */}
+        <Route path="" element={<Home />} />
+        <Route path="home" element={<Home />} />
       </Routes>
     </BrowserRouter>
   );
