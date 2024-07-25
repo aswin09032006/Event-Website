@@ -1,9 +1,7 @@
 import React from "react";
-import logo from "../../assets/nss.png";
 import "./navbar.css";
 
 const Navbar = () => {
-
   return (
     <div className="navbar-container">
       {/* Checkbox for sidebar toggle */}
@@ -17,6 +15,7 @@ const Navbar = () => {
             height="32"
             viewBox="0 -960 960 960"
             width="32"
+            style={{ fill: "white" }} // Set menu icon color to white
           >
             <path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z" />
           </svg>
@@ -25,13 +24,13 @@ const Navbar = () => {
           href="/"
           style={{
             textDecoration: "none",
-            color: "black",
+            color: "#e0e0e0",
             display: "flex",
             alignItems: "center",
           }}
         >
-          <img src={logo} alt="" style={{ height: "35px", paddingTop: "3%" }} />
-          <h3 style={{marginLeft:"10px"}}>RUN FOR EQUALITY 2 - 2024</h3>
+          {/* <img src={logo} alt="" style={{ height: "35px" }} /> */}
+          <h3 style={{ marginLeft: "10px", color: "#e0e0e0" }}>UNIT PRABHAT</h3>
         </a>
       </div>
 
@@ -43,7 +42,7 @@ const Navbar = () => {
         <div className="navbar-links-header">
           {/* Company name in header */}
           <div className="company-name">
-            <a href="/">RUN FOR EQUALITY 2 - 2024</a>
+            <a href="/">UNIT PRABHAT</a>
           </div>
           {/* Close sidebar button */}
           <label htmlFor="sidebar-active" className="close-sidebar-button">
@@ -52,6 +51,7 @@ const Navbar = () => {
               height="32"
               viewBox="0 -960 960 960"
               width="32"
+              style={{ fill: "white" }} // Set close icon color to white
             >
               <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z" />
             </svg>
@@ -62,7 +62,7 @@ const Navbar = () => {
         <div className="navbar-links">
           <a href="/">Home</a>
           <a href="/about">About</a>
-          <a href="/registration">Register</a>
+          <a href="/contact">Contact</a>
         </div>
       </div>
     </div>
