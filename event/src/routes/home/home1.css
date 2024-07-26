@@ -9,13 +9,13 @@
     justify-content: center;
 }
 
-.home-page1-hero-section{
+.home-page1-hero-section {
     height: 100vh;
     width: 100%;
     margin-bottom: 0;
 }
 
-.home-page1-hero-image{
+.home-page1-hero-image {
     width: 100%;
     height: 90%;
     object-fit: cover;
@@ -46,13 +46,13 @@
     font-size: 36px;
     margin: 10px 0;
     font-weight: bold;
-    color: #f4b300; /* Vibrant color for emphasis */
+    color: #ff4500;
 }
 
 .register-text1 {
     font-size: 18px;
     margin-bottom: 20px;
-    color: #000000; /* Light gray for readability */
+    color: #000000;
 }
 
 .register-button1 a {
@@ -61,17 +61,17 @@
     text-decoration: none;
     font-size: 16px;
     color: #fff;
-    border: 2px solid #f4b300; /* Vibrant color for button border */
+    border: 2px solid #ff4500;
     border-radius: 5px;
     padding: 10px 20px;
-    background-color: #f4b300; /* Vibrant color for button background */
+    background-color: #ff4500;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .register-button1 a:hover {
-    background-color: #333; /* Darker background on hover */
-    color: #f4b300; /* Vibrant color for text on hover */
-    border: 2px solid #f4b300;
+    background-color: #333;
+    color: #ff4500;
+    border: 2px solid #ff4500;
 }
 
 .home-page1-sub-header {
@@ -98,25 +98,25 @@
 .about-section-header1 {
     font-size: 28px;
     margin-bottom: 20px;
-    color: #f4b300; /* Vibrant color for section headers */
+    color: #ff4500;
 }
 
 .about-section-para1 {
     font-size: 16px;
     margin-bottom: 20px;
-    color: #e0e0e0; /* Light gray for paragraph text */
+    color: #e0e0e0;
 }
 
 .mission1 {
     font-size: 24px;
     margin-bottom: 10px;
-    color: #f4b300; /* Vibrant color for mission headers */
+    color: #ff4500;
 }
 
 .mission-para1 {
     font-size: 16px;
     line-height: 1.6;
-    color: #e0e0e0; /* Light gray for mission paragraph text */
+    color: #e0e0e0;
 }
 
 .events-section1 {
@@ -130,23 +130,23 @@
 .events-title1 {
     font-size: 22px;
     margin-bottom: 20px;
-    color: #f4b300; /* Vibrant color for events titles */
+    color: #ff4500;
 }
 
 .events-card-container1 {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center; /* Align cards to the left */
+    justify-content: center;
     align-items: flex-start;
 }
 
-.home-page1-contents{
+.home-page1-contents {
     display: flex;
     width: 80vw;
 }
 
-.confirm-button,.submit-button{
+.confirm-button, .submit-button {
     background-color: #333;
     width: auto;
     height: 40px;
@@ -154,12 +154,69 @@
     color: white;
 }
 
-.register-now{
+.register-now {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 70px 0;
+    padding-left: 5px;
     font-size: 25px;
     font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .register-content{
+        font-size: 22px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        text-align: center;
+    }
+    .home-page1-header {
+        flex-direction: column;
+        text-align: center;
+        padding: 10px 20px;
+    }
+
+    .lpu-logo1,
+    .nss-logo1 {
+        width: 100px;
+        height: 100px;
+    }
+
+    .header1 {
+        font-size: 24px;
+    }
+
+    .register-button1 a {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .home-page1-about-section {
+        flex-direction: column;
+        gap: 20px;
+        width: 90vw;
+    }
+
+    .about-section-header1,
+    .mission1 {
+        font-size: 20px;
+    }
+
+    .about-section-para1,
+    .mission-para1 {
+        font-size: 14px;
+    }
+
+    .motto1 {
+        font-size: 28px;
+    }
+
+    .events-title1 {
+        font-size: 18px;
+    }
 }

@@ -28,11 +28,11 @@ const Home = () => {
             </div> */}
             <div className="register-now">
                 <p className="register-content">
-                    <span style={{color:"gray",fontSize:"35px"}}>"</span>  Registration for the Run for Equality 2 - 2024 is open now! <a href="/registration" style={{color:"#f4b300",textDecoration:"none"}}>Click here to register</a> <span style={{color:"gray",fontSize:"35px"}}>"</span>
+                    <span style={{color:"gray",fontSize:"35px"}}>"</span>  Registration for the Run for Equality 2 - 2024 is open now! <a href="/registration" style={{color:"#ff4500",textDecoration:"none"}}>Click here to register</a> <span style={{color:"gray",fontSize:"35px"}}>"</span>
                 </p>
             </div>
             <div className="home-page1-sub-header">
-                <h1 className="motto1"><span style={{color:"#f4b300"}}>Our Motto   </span>Not me, Not you, But we</h1>
+                <h1 className="motto1"><span style={{color:"#ff4500"}}>Our Motto </span><span style={{color:"gray",fontSize:"30px"}}> "</span>Not me, Not you, But we<span style={{color:"gray",fontSize:"30px"}}>"</span></h1>
             </div>
             <div className="home-page1-about-section">
                 <div className="home-page1-about-contents">
