@@ -2,13 +2,14 @@ const express = require('express');
 const multer = require('multer');
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
+const helmet = require('helmet');
+const path = require('path');
+
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 const dbName = 'registrationDB';
-
-
-const uri = "mongodb+srv://parthis1805:Parthiban1805@registeration.j2v4mdr.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=registeration";
+const uri = `mongodb+srv://parthis1805:Parthiban1805@registeration.j2v4mdr.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=registeration`;
 const collectionName = 'registrations';
 
 const storage = multer.diskStorage({
@@ -23,8 +24,22 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.use(cors());
-
 app.use(express.json());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            imgSrc: ["'self'", "data:"],
+            fontSrc: ["'self'", "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+            connectSrc: ["'self'", uri],
+            objectSrc: ["'none'"],
+            upgradeInsecureRequests: [],
+        },
+    },
+}));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const client = new MongoClient(uri);
 
@@ -63,5 +78,7 @@ app.post('/register', upload.single('paymentScreenshot'), async (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`)
+    console.log(`Server running at http://localhost:${port}`);
 });
+
+module.exports = app;
