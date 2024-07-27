@@ -6,7 +6,6 @@ const helmet = require('helmet');
 const path = require('path');
 
 const app = express();
-const port = process.env.PORT || 5000;
 
 const dbName = 'registrationDB';
 const uri = `mongodb+srv://parthis1805:Parthiban1805@registeration.j2v4mdr.mongodb.net/${dbName}?retryWrites=true&w=majority&appName=registeration`;
@@ -14,7 +13,7 @@ const collectionName = 'registrations';
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, '/tmp/uploads');
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname);
@@ -39,7 +38,7 @@ app.use(helmet({
         },
     },
 }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/uploads', express.static(path.join('/tmp/uploads')));
 
 const client = new MongoClient(uri);
 
@@ -75,10 +74,6 @@ app.post('/register', upload.single('paymentScreenshot'), async (req, res) => {
     } finally {
         await client.close();
     }
-});
-
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
 });
 
 module.exports = app;
