@@ -1,6 +1,11 @@
 import React from 'react';
+import feedingbellies from '../../assets/FEEDING BELLIES/img7.png';
+import joyofgiving from '../../assets/JOY OF GIVING/img4.png';
+import nari from '../../assets/NARI/img1.png';
+import physio from '../../assets/PHYSIO/img1.png';
 import placeholder from '../../assets/placeholder.png';
 import rfe from '../../assets/runforequality.png';
+import swachhbharat from '../../assets/SWACHH BHARAT/img3.png';
 import bg from '../../assets/Untitled (1).png';
 import Card from '../../components/card/card';
 import './home1.css';
@@ -64,13 +69,14 @@ const Home = () => {
                 </p>
                 <div className="events-card-container1">
                     <Card title="Plantation Drive" img={placeholder} navlink={"/"} />
-                    <Card title="Physiotherapy" img={placeholder} navlink={"/"} />
-                    <Card title="Feeding Bellies" img={placeholder} navlink={"/"} />
-                    <Card title="Nari: Her Right Her Prides" img={placeholder} navlink={"/"} />
-                    <Card title="Joy of giving" img={placeholder} navlink={"/"} />
+                    <Card title="Physiotherapy" img={physio} navlink={"/"} />
+                    <Card title="Feeding Bellies" img={feedingbellies} navlink={"/"} />
+                    <Card title="Nari: Her Right Her Prides" img={nari} navlink={"/"} />
+                    <Card title="Joy of giving" img={joyofgiving} navlink={"/"} />
                     <Card title="Cancer Awareness" img={placeholder} navlink={"/"} />
                     <Card title="Voter Awareness" img={placeholder} navlink={"/"} />
                     <Card title="Samarpan" img={placeholder} navlink={"/"} />
+                    <Card title="Swachh Bharat" img={swachhbharat} navlink={"/"} />
                 </div>
             </div>
             <div className="events-section1">

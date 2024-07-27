@@ -6,11 +6,13 @@
         "use": "@vercel/node"
       }
     ],
-    "routes": [
-      {
-        "src": "/register",
-        "dest": "/api/server.js"
-      }
-    ]
+    "routes": [ {
+      "src": "/register",
+      "dest": "/register"
+    },
+{
+      "src": "/uploads",
+      "dest": "/uploads"
+    }]
   }
   

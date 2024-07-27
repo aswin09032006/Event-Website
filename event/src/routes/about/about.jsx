@@ -1,5 +1,10 @@
 import React from 'react';
-import placeholder from '../../assets/placeholder.png';
+import img1 from '../../assets/ABOUT US/img1.png';
+import img2 from '../../assets/ABOUT US/img2.png';
+import img3 from '../../assets/ABOUT US/img3.png';
+import img4 from '../../assets/ABOUT US/img4.png';
+import img5 from '../../assets/FEEDING BELLIES/img4.png';
+import img6 from '../../assets/JOY OF GIVING/img4.png';
 import "./about.css";
 
 const About = () => {
@@ -17,12 +22,12 @@ const About = () => {
         <div className="about-gallery-container">
             <h1 >~ Gallery</h1>
             <div className="about-gallery">
-              <img src={placeholder}alt="" />
-              <img src={placeholder}alt="" />
-              <img src={placeholder}alt="" />
-              <img src={placeholder}alt="" />
-              <img src={placeholder}alt="" />
-              <img src={placeholder}alt="" />
+              <img src={img1}alt="" />
+              <img src={img2}alt="" />
+              <img src={img3}alt="" />
+              <img src={img4}alt="" />
+              <img src={img5}alt="" />
+              <img src={img6}alt="" />
             </div>
         </div>
     </div>
