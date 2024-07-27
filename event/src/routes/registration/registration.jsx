@@ -26,9 +26,13 @@ const RegistrationPage = () => {
 
   useEffect(() => {
     if (hORd === "Hosteller") {
-      setHostelNo(gender === "male" ? "BH" : gender === "female" ? "GH" : "");
+      if (gender === "male") {
+        setHostelNo("BH"); // Set the prefix to "BH"
+      } else if (gender === "female") {
+        setHostelNo("GH"); // Set the prefix to "GH"
+      }
     } else {
-      setHostelNo("");
+      setHostelNo(""); // Reset hostel number if not a hosteller
     }
   }, [gender, hORd]);
 
@@ -72,7 +76,7 @@ const RegistrationPage = () => {
 
     setLoading(true);
     axios
-      .post("http://localhost:5000/register", formData)
+      .post("https://unit-prabhat-backend.vercel.app/register", formData)
       .then(() => {
         alert("Registration successful!");
         setPaymentConfirmed(false);
@@ -258,8 +262,8 @@ const RegistrationPage = () => {
             <input
               type="text"
               className="field-input"
-              value={hostelNo}
-              readOnly
+              value={hostelNo} // This will include the prefix "BH" or "GH"
+              onChange={(e) => setHostelNo(e.target.value)} // Allow user to type the number
             />
           </div>
         )}
